@@ -338,8 +338,8 @@
         // --- משיכת זמני היום מ-Hebcal ---
 async function fetchZamanim() {
     try {
-        // שימוש ב-API עם כל הפרמטרים האפשריים להבטחת שליחת הנתונים
-        const response = await fetch('https://www.hebcal.com/zmanim?cfg=json&city=IL-Jerusalem&all=1&ue=1');
+        // משיכת נתונים בסיסית עבור ירושלים
+        const response = await fetch('https://www.hebcal.com/zmanim?cfg=json&city=IL-Jerusalem');
         const data = await response.json();
         const t = data.times;
 
@@ -349,23 +349,14 @@ async function fetchZamanim() {
             return isNaN(date.getTime()) ? "--:--" : date.toLocaleTimeString('he-IL', {hour: '2-digit', minute: '2-digit'});
         };
 
-        // לוגיקת סריקה חכמה: בודק את כל האפשרויות הנפוצות ש-Hebcal משתמש בהן
-        // סדר העדיפות: זמן קריאת שמע רגיל -> גר"א -> מגן אברהם
-        let shma = t.sofsmanShma || t.sofsmanShmaGra || t.sofsmanShmaMGA || t.shma;
-
-        // אם עדיין לא נמצא (לפעמים זה בתוך אובייקט פנימי), נחפש בתוך רשימת הזמנים
-        if (!shma && data.zmanim) {
-            shma = data.zmanim.sofsmanShma || data.zmanim.shma;
-        }
-
+        // מציג רק זריחה ושקיעה - השדות הכי יציבים ב-API
         document.getElementById('zamanim').innerHTML = `
             <div><b>זריחה</b> ${format(t.sunrise)}</div>
-            <div><b>סוף ק"ש</b> ${format(shma)}</div>
+            <div style="border-right: 1px solid var(--primary); padding-right: 20px;"></div>
             <div><b>שקיעה</b> ${format(t.sunset)}</div>
         `;
     } catch (e) {
-        console.error("Error fetching zamanim:", e);
-        document.getElementById('zamanim').innerHTML = "שגיאה בטעינת זמנים";
+        document.getElementById('zamanim').innerHTML = "זמני ירושלים";
     }
 }
         // --- מצב לילה ---
