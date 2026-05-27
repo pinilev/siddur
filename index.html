@@ -338,8 +338,8 @@
         // --- משיכת זמני היום מ-Hebcal ---
 async function fetchZamanim() {
     try {
-        // הוספנו פרמטר &ue=1 שמבטיח שכל זמני היום יישלחו
-        const response = await fetch('https://www.hebcal.com/zmanim?cfg=json&city=IL-Jerusalem&ue=1');
+        // שימוש בכתובת API מפורטת יותר עבור ירושלים
+        const response = await fetch('https://www.hebcal.com/zmanim?cfg=json&city=IL-Jerusalem&all=1');
         const data = await response.json();
         const t = data.times;
 
@@ -349,21 +349,19 @@ async function fetchZamanim() {
             return isNaN(date.getTime()) ? "--:--" : date.toLocaleTimeString('he-IL', {hour: '2-digit', minute: '2-digit'});
         };
 
-        // ב-API המורחב, הזמן נקרא sofsmanShma (לפי הגר"א)
-        // אם הוא חסר, ננסה שמות חלופיים נפוצים אחרים
-        const shmaTime = t.sofsmanShma || t.sofsmanShmaGra || t.sofsmanShmaMGA;
+        // ה-API מחזיר לפעמים שמות שונים, נכסה את כולם לפי סדר עדיפויות (גר"א קודם)
+        const shma = t.sofsmanShma || t.sofsmanShmaGra || t.sofsmanShmaMGA;
 
         document.getElementById('zamanim').innerHTML = `
             <div><b>זריחה</b> ${format(t.sunrise)}</div>
-            <div><b>סוף ק"ש</b> ${format(shmaTime)}</div>
+            <div><b>סוף ק"ש</b> ${format(shma)}</div>
             <div><b>שקיעה</b> ${format(t.sunset)}</div>
         `;
     } catch (e) {
-        console.error("Zamanim Error:", e);
         document.getElementById('zamanim').innerHTML = "שגיאה בטעינת זמנים";
     }
 }
-        // --- מצב לילה ---
+       // --- מצב לילה ---
         function toggleDarkMode() { document.getElementById('mainBody').classList.toggle('dark-mode'); }
 
         // --- גלילה אוטומטית ---
