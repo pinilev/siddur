@@ -3,36 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>סידור עדות המזרח - גרסה מלאה</title>
+    <title>סידור עדות המזרח - גרסה יציבה</title>
     <style>
         :root { --primary: #8d6e63; --dark: #5d4037; --bg: #f4f1ea; --text: #333; --box: white; }
         body.dark-mode { --bg: #1a1a1a; --text: #e0e0e0; --box: #2d2d2d; --dark: #d7ccc8; }
-
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; padding-bottom: 160px; transition: 0.3s; }
-        .container { max-width: 600px; margin: auto; background: var(--box); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        
-        .zamanim-bar { 
-            background: rgba(141, 110, 99, 0.15); padding: 10px; border-radius: 8px; 
-            margin-bottom: 15px; display: flex; justify-content: space-around; align-items: center;
-            font-size: 0.85rem; border: 1px solid var(--primary);
-        }
-        .zamanim-bar b { color: var(--primary); display: block; }
-
-        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 10px; padding-bottom: 160px; transition: 0.3s; }
+        .container { max-width: 600px; margin: auto; background: var(--box); padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .font-controls { display: flex; gap: 5px; }
-        .btn-small { padding: 5px 10px; font-size: 0.8rem; background: #666; }
-
-        .menu { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; position: sticky; top: 0; background: var(--box); padding: 10px 0; z-index: 10; }
-        button { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        
-        /* תוכן התפילה */
-        .content { line-height: 1.8; font-size: 1.4rem; white-space: pre-wrap; display: none; }
+        .btn-small { padding: 5px 12px; font-size: 1rem; background: #666; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .zamanim-bar { background: rgba(141, 110, 99, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 15px; display: flex; justify-content: space-around; align-items: center; font-size: 0.9rem; border: 1px solid var(--primary); text-align: center; }
+        .menu { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px; position: sticky; top: 0; background: var(--box); padding: 10px 0; z-index: 10; border-bottom: 1px solid #eee; }
+        button.nav-btn { background: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .content { line-height: 1.8; font-size: 1.4rem; white-space: pre-wrap; display: none; padding: 10px; }
         .active { display: block; }
         .highlight { color: var(--primary); font-weight: bold; display: block; margin-top: 20px; border-right: 4px solid var(--primary); padding-right: 10px; }
-
-        /* פאנל שליטה תחתון */
-        .scroll-panel { position: fixed; bottom: 0; left: 0; right: 0; background: var(--box); padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; border-top: 2px solid var(--primary); z-index: 100; }
-        .slider-row { display: flex; align-items: center; gap: 15px; width: 100%; max-width: 400px; }
+        .scroll-panel { position: fixed; bottom: 0; left: 0; right: 0; background: var(--box); padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; border-top: 2px solid var(--primary); z-index: 100; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        .slider-row { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 400px; font-size: 0.8rem; }
         input[type=range] { flex-grow: 1; accent-color: var(--primary); }
     </style>
 </head>
@@ -40,29 +27,29 @@
 
 <div class="container">
     <div class="top-nav">
+        <button onclick="toggleDarkMode()" style="background:#444; color:white; border:none; padding:5px 10px; border-radius:5px; font-size:0.8rem;">מצב לילה 🌙</button>
         <div class="font-controls">
-            <button class="btn-small" onclick="changeFontSize(2)">א+</button>
-            <button class="btn-small" onclick="changeFontSize(-2)">א-</button>
+            <button class="btn-small" onclick="changeFontSize(0.1)">א+</button>
+            <button class="btn-small" onclick="changeFontSize(-0.1)">א-</button>
         </div>
-        <button onclick="toggleDarkMode()" style="background:#444; font-size:0.8rem;">מצב לילה 🌙</button>
     </div>
 
-    <div id="zamanim" class="zamanim-bar">טוען זמנים...</div>
+    <div id="zamanim" class="zamanim-bar">טוען נתונים...</div>
     
     <div class="menu">
-        <button onclick="showSection('shacharit')">שחרית</button>
-        <button onclick="showSection('mincha')">מנחה</button>
-        <button onclick="showSection('arvit')">ערבית</button>
-        <button onclick="showSection('brachot')">ברכות</button>
+        <button class="nav-btn" onclick="showSection('shacharit')">שחרית</button>
+        <button class="nav-btn" onclick="showSection('mincha')">מנחה</button>
+        <button class="nav-btn" onclick="showSection('arvit')">ערבית</button>
+        <button class="nav-btn" onclick="showSection('brachot')">ברכות</button>
     </div>
 
     <div id="shacharit" class="content">
         <span class="highlight">מודה אני</span>
-        מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם...
+        מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם, שֶׁהֶחֱזַרְתָּ בִּי נִשְׁמָתִי בְּחֶמְלָה, רַבָּה אֱמוּנָתֶךָ.
     </div>
 
     <div id="mincha" class="content">
-        <span class="highlight">אשרי יושבי ביתך</span>
+        <span class="highlight">אשרי</span>
         אַשְׁרֵי יוֹשְׁבֵי בֵיתֶךָ...
     </div>
 
@@ -79,37 +66,65 @@
 
 <div class="scroll-panel">
     <div class="slider-row">
-        <span>גלילה איטית</span>
+        <span>איטי</span>
         <input type="range" id="scrollSpeed" min="0" max="100" value="0">
-        <span>מהירה</span>
+        <span>מהיר</span>
     </div>
-    <button style="background:#c62828; width:100%; max-width:400px;" onclick="stopScroll()">עצור גלילה</button>
+    <button style="background:#c62828; color:white; border:none; padding:10px; border-radius:5px; width:100%; max-width:400px;" onclick="stopScroll()">עצור גלילה</button>
 </div>
 
 <script>
-    // --- שליטה בגודל גופן ---
     let currentFontSize = 1.4;
     function changeFontSize(delta) {
-        currentFontSize += delta * 0.1;
-        const contents = document.querySelectorAll('.content');
-        contents.forEach(c => c.style.fontSize = currentFontSize + 'rem');
+        currentFontSize += delta;
+        document.querySelectorAll('.content').forEach(c => c.style.fontSize = currentFontSize + 'rem');
     }
 
-    // --- זמנים ותאריך עברי ---
     async function fetchZamanim() {
         try {
-            const response = await fetch('https://www.hebcal.com/zmanim?cfg=json&city=IL-Jerusalem');
-            const data = await response.json();
-            const t = data.times;
-            const displayDate = data.hebdate || "ירושלים";
-            const format = (iso) => new Date(iso).toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
+            // קריאה ראשונה: זמני היום
+            const resZ = await fetch('https://www.hebcal.com/zmanim?cfg=json&city=IL-Jerusalem');
+            const dataZ = await resZ.json();
+            
+            // קריאה שנייה: תאריך עברי להיום
+            const resH = await fetch('https://www.hebcal.com/converter?cfg=json&gy=' + new Date().getFullYear() + '&gm=' + (new Date().getMonth()+1) + '&gd=' + new Date().getDate() + '&g2h=1');
+            const dataH = await resH.json();
+
+            const format = (iso) => {
+                if(!iso) return "--:--";
+                return new Date(iso).toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
+            };
 
             document.getElementById('zamanim').innerHTML = `
-                <div><b>זריחה</b> ${format(t.sunrise)}</div>
-                <div style="font-weight:bold;">${displayDate}</div>
-                <div><b>שקיעה</b> ${format(t.sunset)}</div>
+                <div>זריחה<br><b>${format(dataZ.times.sunrise)}</b></div>
+                <div style="font-weight:bold; color:var(--dark); font-size:1rem;">${dataH.hebrew}</div>
+                <div>שקיעה<br><b>${format(dataZ.times.sunset)}</b></div>
             `;
-        } catch (e) { document.getElementById('zamanim').innerHTML = "זמני ירושלים"; }
+        } catch (e) {
+            document.getElementById('zamanim').innerHTML = "ירושלים | " + new Date().toLocaleDateString('he-IL');
+        }
     }
 
-    function toggleDarkMode() { document.getElementById('mainBody').classList.toggle('dark-mode
+    function toggleDarkMode() { document.getElementById('mainBody').classList.toggle('dark-mode'); }
+
+    let scroller;
+    const speedInput = document.getElementById('scrollSpeed');
+    speedInput.oninput = function() {
+        clearInterval(scroller);
+        if (this.value > 0) scroller = setInterval(() => window.scrollBy(0, 1), 115 - this.value);
+    };
+    function stopScroll() { clearInterval(scroller); speedInput.value = 0; }
+
+    function showSection(id) {
+        stopScroll();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    fetchZamanim();
+    showSection('shacharit');
+</script>
+
+</body>
+</html>
