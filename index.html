@@ -1,159 +1,502 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" class="light">
+<html lang="he" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>סידור שחרית - וַיְכַלְכֵּל יוֹסֵף</title>
+    <title>סידור וַיְכַלְכֵּל יוֹסֵף</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    colors: {
+                        brand: {
+                            light: '#fdfbf7', // קטיפה בהירה קלאסית
+                            dark: '#121212',  // שחור עמוק
+                            gold: '#d4af37',  // זהב מלכותי
+                            goldHover: '#aa8c2c',
+                            cardLight: '#faf6f0',
+                            cardDark: '#1e1e1e'
+                        }
+                    },
                     fontFamily: {
-                        siddur: ['"Frank Ruhl Libre"', 'David', 'serif'],
+                        sans: ['Rubik', 'Assistant', 'sans-serif'],
+                        serif: ['"Frank Ruhl Libre"', 'David', 'serif']
                     }
                 }
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap');
-        body { transition: background-color 0.3s, color 0.3s; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@400;700&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#fdfbf7] text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-siddur min-h-screen">
+<body class="bg-brand-light dark:bg-brand-dark text-slate-800 dark:text-gray-200 min-h-screen font-serif transition-colors duration-300 flex flex-col">
 
-    <!-- סרגל כלים עליון -->
-    <nav class="sticky top-0 bg-white/95 dark:bg-slate-900/95 shadow-md border-b border-amber-200 dark:border-slate-800 p-3 z-50 backdrop-blur select-none">
-        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-brand-cardDark/90 backdrop-blur-md border-b border-amber-100 dark:border-amber-950/40 shadow-sm transition-all">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
             
-            <!-- כותרת וזמנים -->
-            <div class="text-center sm:text-right">
-                <h1 class="text-2xl font-bold text-amber-700 dark:text-amber-500">וַיְכַלְכֵּל יוֹסֵף</h1>
-                <div class="text-sm text-slate-600 dark:text-slate-400 mt-1 flex flex-wrap justify-center sm:justify-start gap-3">
-                    <span id="heb-date" class="font-bold">טוען תאריך...</span>
-                    <span id="sun-times">טוען זמנים...</span>
+            <!-- Logo / Brand -->
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-amber-50 dark:bg-amber-950/40 rounded-lg border border-brand-gold/30">
+                    <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold font-sans tracking-wide text-amber-800 dark:text-brand-gold">וַיְכַלְכֵּל יוֹסֵף</h1>
+                    <p class="text-xs font-sans text-gray-500 dark:text-gray-400">סידור תפילת שחרית חכם</p>
                 </div>
             </div>
 
-            <!-- כפתורי שליטה -->
-            <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
-                <button onclick="changeFontSize(2)" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="הגדל טקסט">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13.4a2 2 0 0 1 1.6 3.2l-3.4 4.5a2 2 0 0 0 0 2.6l3.4 4.5a2 2 0 0 1-1.6 3.2H6a2 2 0 0 1-2-2z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+            <!-- Hebrew Date & Zmanim Info -->
+            <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-sans bg-amber-50/50 dark:bg-amber-950/10 px-3 py-1.5 rounded-full border border-amber-100/50 dark:border-amber-950/20">
+                <div class="flex items-center gap-1.5">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-brand-gold"></i>
+                    <span id="hebrew-date" class="font-medium">טוען תאריך...</span>
+                </div>
+                <div class="h-3 w-px bg-amber-200 dark:bg-amber-900"></div>
+                <div class="flex items-center gap-1.5">
+                    <i data-lucide="sunrise" class="w-3.5 h-3.5 text-amber-600"></i>
+                    <span>נץ:</span>
+                    <span id="sunrise-time" class="font-semibold">--:--</span>
+                </div>
+                <div class="h-3 w-px bg-amber-200 dark:bg-amber-900"></div>
+                <div class="flex items-center gap-1.5">
+                    <i data-lucide="sunset" class="w-3.5 h-3.5 text-indigo-600"></i>
+                    <span>שקיעה:</span>
+                    <span id="sunset-time" class="font-semibold">--:--</span>
+                </div>
+                <button onclick="requestLocation()" id="location-indicator" title="עדכן מיקום" class="hover:text-brand-gold transition-colors">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 animate-pulse text-amber-500"></i>
                 </button>
-                <button onclick="changeFontSize(-2)" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="הקטן טקסט">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13.4a2 2 0 0 1 1.6 3.2l-3.4 4.5a2 2 0 0 0 0 2.6l3.4 4.5a2 2 0 0 1-1.6 3.2H6a2 2 0 0 1-2-2z"/><path d="M9 12h6"/></svg>
+            </div>
+
+            <!-- Top Actions -->
+            <div class="flex items-center gap-2">
+                <!-- Dark Mode -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition" title="שינוי מצב תצוגה">
+                    <i id="theme-icon" data-lucide="moon" class="w-5 h-5"></i>
                 </button>
-                <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                <button id="scroll-btn" onclick="toggleAutoScroll()" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="גלילה אוטומטית">
-                    <svg id="scroll-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                <!-- Editor / Paste Option -->
+                <button onclick="toggleEditorModal()" class="p-2 rounded-lg bg-amber-500 text-white hover:bg-brand-goldHover transition font-sans text-xs flex items-center gap-1" title="הדבקת HTML מותאם אישית">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                    <span>הדבק תפילה</span>
                 </button>
-                <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="מצב חשוך/מואר">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Floating Assistant Control Panel (Sticky right side for desktop, bottom for mobile) -->
+    <div class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:bottom-1/2 md:translate-y-1/2 z-30 flex md:flex-col gap-2 bg-white/95 dark:bg-brand-cardDark/95 p-3 rounded-2xl shadow-xl border border-amber-100 dark:border-amber-950/40 backdrop-blur-sm max-w-sm md:max-w-none mx-auto justify-around">
+        
+        <!-- Font Size Controls -->
+        <div class="flex md:flex-col items-center gap-1 border-l md:border-l-0 md:border-b border-gray-100 dark:border-zinc-800 pb-0 md:pb-2 pl-2 md:pl-0">
+            <span class="text-[10px] font-sans text-gray-400 dark:text-gray-500 hidden md:inline">גופן</span>
+            <button onclick="adjustFont(1)" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 text-brand-gold" title="הגדל גופן">
+                <i data-lucide="zoom-in" class="w-5 h-5"></i>
+            </button>
+            <span id="font-size-display" class="font-sans text-xs font-semibold">100%</span>
+            <button onclick="adjustFont(-1)" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 text-brand-gold" title="הקטן גופן">
+                <i data-lucide="zoom-out" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Auto Scroll Controls -->
+        <div class="flex flex-1 md:flex-initial md:flex-col items-center gap-2 pt-0 md:pt-2">
+            <span class="text-[10px] font-sans text-gray-400 dark:text-gray-500 hidden md:inline">גלילה</span>
+            
+            <button id="scroll-toggle-btn" onclick="toggleAutoScroll()" class="p-2.5 rounded-full bg-amber-50 dark:bg-amber-950/30 border border-brand-gold/30 text-amber-800 dark:text-brand-gold hover:bg-brand-gold hover:text-white transition flex items-center justify-center" title="הפעל גלילה אוטומטית">
+                <i id="scroll-icon" data-lucide="play" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="flex items-center md:flex-col gap-1 w-full">
+                <span class="text-[9px] font-sans text-gray-400 dark:text-gray-500">מהירות</span>
+                <input id="scroll-speed" type="range" min="1" max="10" value="3" class="w-20 md:w-16 accent-brand-gold cursor-pointer" title="מהירות גלילה">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-8 pb-32">
+        <div id="siddur-container" class="bg-white dark:bg-brand-cardDark rounded-2xl p-6 md:p-10 shadow-md border border-amber-100/50 dark:border-amber-950/20 leading-relaxed text-right font-serif" style="font-size: 1.35rem;">
+            
+            <!-- This container holds the prayer HTML. -->
+            <div id="prayer-content" class="space-y-6 transition-all duration-300">
+                
+                <!-- ==================================================================================== -->
+                <!-- להתחלת הדבקת ה-HTML של התפילה -->
+                <!-- ==================================================================================== -->
+                <!-- כאן מתחילה תבנית ברירת המחדל היפה של התפילה. באפשרותך להחליף את כל הבלוק הזה ב-HTML משלך. -->
+                
+                <!-- סימון מעבר קטעים מיוחד -->
+                <div class="text-center my-8 border-b-2 border-double border-amber-200 dark:border-amber-950/60 pb-4">
+                    <span class="bg-brand-light dark:bg-brand-dark px-4 py-1 text-sm font-sans font-bold text-brand-gold tracking-widest uppercase rounded-full">ברכות השחר</span>
+                </div>
+
+                <div class="prayer-section text-center">
+                    <h2 class="text-2xl font-bold text-amber-900 dark:text-brand-gold mb-4">מוֹדֶה אֲנִי</h2>
+                    <p class="text-xl md:text-2xl leading-loose tracking-wide font-medium">
+                        מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם, שֶׁהֶחֱזַרְתָּ בִּי נִשְׁמָתִי בְּחֶמְלָה. רַבָּה אֱמוּנָתֶךָ:
+                    </p>
+                </div>
+
+                <div class="text-center my-8 border-b border-dashed border-amber-200 dark:border-amber-950/30 pb-2"></div>
+
+                <div class="prayer-section">
+                    <h2 class="text-2xl font-bold text-amber-900 dark:text-brand-gold text-center mb-4">רֵאשִׁית חָכְמָה</h2>
+                    <p class="leading-loose tracking-wide">
+                        רֵאשִׁית חָכְמָה יִרְאַת ה', שֵׂכֶל טוֹב לְכָל עֹשֵׂיהֶם, תְּהִלָּתוֹ עֹמֶדֶת לָעַד. בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד:
+                    </p>
+                    <p class="leading-loose tracking-wide mt-4">
+                        תּוֹרָה צִוָּה לָנוּ מֹשֶׁה, מוֹרָשָׁה קְהִלַּת יַעֲקֹב: שְׁמַע בְּנִי מוּסַר אָבִיךָ, וְאַל תִּטֹּשׁ תּוֹרַת אִמֶּךָ: תּוֹרָה אַחַת יִהְיֶה לְכֻלָּנוּ, מוֹרָשָׁה קְהִלַּת יַעֲקֹב.
+                    </p>
+                </div>
+
+                <div class="text-center my-8 border-b-2 border-double border-amber-200 dark:border-amber-950/60 pb-4">
+                    <span class="bg-brand-light dark:bg-brand-dark px-4 py-1 text-sm font-sans font-bold text-brand-gold tracking-widest uppercase rounded-full">ברכת אשר יצר</span>
+                </div>
+
+                <div class="prayer-section">
+                    <p class="leading-loose tracking-wide">
+                        בָּרוּךְ אַתָּה ה' אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר יָצַר אֶת הָאָדָם בְּחָכְמָה, וּבָרָא בוֹ נְקָבִים נְקָבִים, חֲלוּלִים חֲלוּלִים. גָּלוּי וְיָדוּעַ לִפְנֵי כִסֵּא כְבוֹדֶךָ, שֶׁאִם יִפָּתֵחַ אֶחָד מֵהֶם, אוֹ אִם יִסָּתֵם אֶחָד מֵהֶם, אִי אֶפְשָׁר לְהִתְקַיֵּם אֲפִילוּ שָׁעָה אֶחָת:
+                    </p>
+                    <p class="leading-loose tracking-wide font-semibold text-amber-900 dark:text-brand-gold mt-2">
+                        בָּרוּךְ אַתָּה ה', רוֹפֵא כָל בָּשָׂר וּמַפְלִיא לַעֲשׂוֹת:
+                    </p>
+                </div>
+
+                <div class="text-center my-8 border-b-2 border-double border-amber-200 dark:border-amber-950/60 pb-4">
+                    <span class="bg-brand-light dark:bg-brand-dark px-4 py-1 text-sm font-sans font-bold text-brand-gold tracking-widest uppercase rounded-full">ברכת אלוהי נשמה</span>
+                </div>
+
+                <div class="prayer-section">
+                    <p class="leading-loose tracking-wide">
+                        אֱלֹהַי, נְשָׁמָה שֶׁנָּתַתָּ בִּי טְהוֹרָה. אַתָּה בְרָאתָהּ, אַתָּה יְצַרְתָּהּ, אַתָּה נְפַחְתָּהּ בִּי, וְאַתָּה מְשַׁמְּרָהּ בְּקִרְבִּי, וְאַתָּה עָתִיד לִטְּלָהּ מִמֶּנִּי, וּלְהַחֲזִירָהּ בִּי לֶעָתִיד לָבוֹא. כָּל זְמַן שֶׁהַנְּשָׁמָה בְּקִרְבִּי, מוֹדֶה אֲנִי לְפָנֶיךָ ה' אֱלֹהַי וֵאלֹהֵי אֲבוֹתַי, רִבּוֹן כָּל הַמַּעֲשִׂים, אֲדוֹן כָּל הַנְּשָׁמוֹת:
+                    </p>
+                    <p class="leading-loose tracking-wide font-semibold text-amber-900 dark:text-brand-gold mt-2">
+                        בָּרוּךְ אַתָּה ה', הַמַּחֲזִיר נְשָׁמוֹת לִפְגָרִים מֵתִים:
+                    </p>
+                </div>
+
+                <div class="text-center my-12 p-6 bg-amber-50/40 dark:bg-zinc-900/40 rounded-xl border border-dashed border-amber-200 dark:border-amber-950/50">
+                    <p class="text-sm font-sans text-amber-800 dark:text-brand-gold mb-2 font-semibold">ניתן להדביק כאן את המשך התפילה</p>
+                    <p class="text-xs font-sans text-gray-500 dark:text-gray-400">
+                        באפשרותך ללחוץ על כפתור "הדבק תפילה" בראש הדף כדי להזין קוד HTML מלא שיחליף את דף הסידור לתמיד או לערוך את הקוד ישירות.
+                    </p>
+                </div>
+
+                <!-- ==================================================================================== -->
+                <!-- סוף מקום הדבקת ה-HTML של התפילה -->
+                <!-- ==================================================================================== -->
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Status / Geolocation Bar -->
+    <footer class="mt-auto bg-white dark:bg-zinc-950 border-t border-amber-100 dark:border-amber-950/30 py-4 text-center text-xs font-sans text-gray-500 dark:text-gray-400">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>סידור "וַיְכַלְכֵּל יוֹסֵף" © תשפ"ו</span>
+            <div class="flex items-center gap-1.5" id="coord-display">
+                <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                <span>זמנים מחושבים לפי מיקום ברירת מחדל (ירושלים)</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Editor Modal for pasting Custom HTML -->
+    <div id="editor-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white dark:bg-brand-cardDark w-full max-w-2xl rounded-2xl shadow-2xl border border-amber-100 dark:border-amber-950/40 overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="p-4 bg-amber-50 dark:bg-amber-950/20 border-b border-amber-100 dark:border-amber-950/20 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="code" class="text-brand-gold w-5 h-5"></i>
+                    <h3 class="font-sans font-bold text-lg text-amber-900 dark:text-brand-gold">הדבקת נוסח תפילה מותאם (HTML)</h3>
+                </div>
+                <button onclick="toggleEditorModal()" class="p-1 hover:bg-gray-200 dark:hover:bg-zinc-850 rounded-lg transition text-gray-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="p-4 flex-1 overflow-y-auto space-y-3">
+                <p class="text-xs font-sans text-gray-500 dark:text-gray-400">
+                    הדבק כאן את קוד ה-HTML של התפילה שלך (כולל עיצוב ותגיות כגון <code>&lt;p&gt;</code>, <code>&lt;h2&gt;</code> וכו'). התוכן יישמר ישירות בדפדפן שלך.
+                </p>
+                <textarea id="custom-html-input" class="w-full h-80 p-3 font-mono text-sm bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-right" placeholder="<div class='prayer-section'>\n  <h2>שמע ישראל</h2>\n  <p>שְׁמַע יִשְׂרָאֵל ה' אֱלֹהֵינוּ ה' אֶחָד</p>\n</div>"></textarea>
+            </div>
+
+            <div class="p-4 bg-gray-50 dark:bg-zinc-900/50 border-t border-gray-100 dark:border-zinc-800/50 flex justify-end gap-2">
+                <button onclick="clearCustomPrayer()" class="px-4 py-2 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/10 font-sans text-sm transition">
+                    אפס לברירת מחדל
+                </button>
+                <button onclick="toggleEditorModal()" class="px-4 py-2 rounded-xl bg-gray-200 dark:bg-zinc-800 hover:bg-gray-300 dark:hover:bg-zinc-700 font-sans text-sm transition text-gray-700 dark:text-gray-300">
+                    ביטול
+                </button>
+                <button onclick="saveCustomPrayer()" class="px-5 py-2 rounded-xl bg-brand-gold text-white hover:bg-brand-goldHover font-sans text-sm font-semibold transition shadow-md">
+                    שמור ועדכן סידור
                 </button>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <!-- תוכן התפילה -->
-    <main id="siddur-content" class="p-6 max-w-3xl mx-auto pb-32" style="font-size: 26px; line-height: 1.6;">
-        
-        <!-- ================================================================= -->
-        <!-- ===== הדבק כאן את הטקסט של תפילת שחרית (במקום שורת ההדגמה) ===== -->
-        <!-- ================================================================= -->
-        
-        <div class="text-center text-slate-400 mt-20 border-2 border-dashed border-slate-300 p-10 rounded-xl">
-            כאן יופיע טקסט התפילה.<br>
-            פתח את הקובץ בעורך טקסט והדבק את קוד ה-HTML במקום המסומן.
-        </div>
-
-        <!-- ================================================================= -->
-        <!-- ========================== סוף אזור הטקסט ========================== -->
-        <!-- ================================================================= -->
-
-    </main>
-
+    <!-- Script Section -->
     <script>
-        // אלמנטים
-        const html = document.documentElement;
-        const content = document.getElementById('siddur-content');
-        const hebDateEl = document.getElementById('heb-date');
-        const sunTimesEl = document.getElementById('sun-times');
-        const scrollIcon = document.getElementById('scroll-icon');
-        const scrollBtn = document.getElementById('scroll-btn');
-
-        // שינוי גודל פונט
-        let currentFontSize = 26;
-        function changeFontSize(delta) {
-            currentFontSize += delta;
-            if (currentFontSize < 14) currentFontSize = 14;
-            if (currentFontSize > 60) currentFontSize = 60;
-            content.style.fontSize = currentFontSize + 'px';
-        }
-
-        // מצב לילה/יום
-        function toggleTheme() {
-            html.classList.toggle('dark');
-        }
-
-        // גלילה אוטומטית
-        let scrollInterval;
+        // --- State Management ---
+        let fontSizePercent = 100;
+        let isDarkMode = false;
         let isScrolling = false;
-        function toggleAutoScroll() {
-            isScrolling = !isScrolling;
-            if (isScrolling) {
-                scrollBtn.classList.add('text-amber-600', 'bg-amber-100', 'dark:bg-amber-900', 'dark:text-amber-400');
-                scrollIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'; // אייקון השהיה
-                scrollInterval = setInterval(() => {
-                    window.scrollBy({top: 1, behavior: 'auto'});
-                }, 40); // מהירות גלילה
+        let scrollInterval = null;
+        let userCoords = { lat: 31.7683, lon: 35.2137 }; // ברירת מחדל - ירושלים
+        let locationPermissionGranted = false;
+
+        // --- Init App ---
+        window.onload = function() {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+            
+            // Check Theme Preference
+            if (localStorage.getItem('theme') === 'dark' || 
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                enableDarkMode();
             } else {
-                scrollBtn.classList.remove('text-amber-600', 'bg-amber-100', 'dark:bg-amber-900', 'dark:text-amber-400');
-                scrollIcon.innerHTML = '<polygon points="6 3 20 12 6 21 6 3"></polygon>'; // אייקון נגן
-                clearInterval(scrollInterval);
+                disableDarkMode();
+            }
+
+            // Check Font Size Preference
+            if (localStorage.getItem('fontSize')) {
+                fontSizePercent = parseInt(localStorage.getItem('fontSize'));
+                applyFontSize();
+            }
+
+            // Load Saved Custom Prayer if exists
+            const savedPrayer = localStorage.getItem('custom_prayer_html');
+            if (savedPrayer) {
+                document.getElementById('prayer-content').innerHTML = savedPrayer;
+                document.getElementById('custom-html-input').value = savedPrayer;
+            } else {
+                // Pre-populate input with original content for easy editing
+                document.getElementById('custom-html-input').value = document.getElementById('prayer-content').innerHTML;
+            }
+
+            // Try Geolocation
+            initLocation();
+
+            // Fetch Jewish Date
+            fetchHebrewDate();
+        };
+
+        // --- Theme Controls ---
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
             }
         }
 
-        // המרת שעות לתבנית 24 שעות
-        function formatTime(time12h) {
-            try {
-                const [time, modifier] = time12h.split(' ');
-                let [hours, minutes] = time.split(':');
-                if (hours === '12') hours = '00';
-                if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
-                return `${hours.toString().padStart(2, '0')}:${minutes}`;
-            } catch(e) { return time12h; }
+        function enableDarkMode() {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            isDarkMode = true;
+            updateThemeIcons();
         }
 
-        // הבאת תאריך עברי בצורה תקינה ודינמית
-        const today = new Date().toISOString().split('T')[0];
-        fetch(`https://www.hebcal.com/converter?cfg=json&date=${today}&g=1`)
-            .then(res => res.json())
-            .then(data => { hebDateEl.innerText = data.hebrew; })
-            .catch(() => { hebDateEl.innerText = "שגיאה בטעינת תאריך"; });
+        function disableDarkMode() {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            isDarkMode = false;
+            updateThemeIcons();
+        }
 
-        // הבאת זמני היום (זריחה ושקיעה) לפי מיקום נוכחי
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(position => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                fetch(`https://api.sunrisesunset.io/json?lat=${lat}&lng=${lng}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        const sunrise = formatTime(data.results.sunrise);
-                        const sunset = formatTime(data.results.sunset);
-                        sunTimesEl.innerHTML = `<span class="px-2">זריחה: ${sunrise}</span> | <span class="px-2">שקיעה: ${sunset}</span>`;
-                    })
-                    .catch(() => { sunTimesEl.innerText = "שגיאה בטעינת זמנים"; });
-            }, () => {
-                sunTimesEl.innerText = "מיקום לא אושר";
-            });
-        } else {
-            sunTimesEl.innerText = "מיקום אינו נתמך במכשיר";
+        function updateThemeIcons() {
+            const icon = document.getElementById('theme-icon');
+            if (isDarkMode) {
+                icon.setAttribute('data-lucide', 'sun');
+                icon.parentElement.classList.add('bg-amber-500/10', 'text-amber-500');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+                icon.parentElement.classList.remove('bg-amber-500/10', 'text-amber-500');
+            }
+            lucide.createIcons();
+        }
+
+        // --- Font Adjustment ---
+        function adjustFont(direction) {
+            fontSizePercent += direction * 10;
+            if (fontSizePercent < 60) fontSizePercent = 60;
+            if (fontSizePercent > 200) fontSizePercent = 200;
+            applyFontSize();
+        }
+
+        function applyFontSize() {
+            const container = document.getElementById('siddur-container');
+            container.style.fontSize = `${(fontSizePercent / 100) * 1.35}rem`;
+            document.getElementById('font-size-display').innerText = `${fontSizePercent}%`;
+            localStorage.setItem('fontSize', fontSizePercent);
+        }
+
+        // --- Auto-Scroll Feature ---
+        function toggleAutoScroll() {
+            if (isScrolling) {
+                stopAutoScroll();
+            } else {
+                startAutoScroll();
+            }
+        }
+
+        function startAutoScroll() {
+            isScrolling = true;
+            document.getElementById('scroll-icon').setAttribute('data-lucide', 'pause');
+            document.getElementById('scroll-toggle-btn').classList.add('bg-amber-500', 'text-white');
+            lucide.createIcons();
+
+            const speedInput = document.getElementById('scroll-speed');
+            
+            function scrollStep() {
+                if (!isScrolling) return;
+                const speed = parseFloat(speedInput.value); // 1 to 10
+                window.scrollBy(0, speed / 3.5);
+                scrollInterval = requestAnimationFrame(scrollStep);
+            }
+            
+            scrollInterval = requestAnimationFrame(scrollStep);
+        }
+
+        function stopAutoScroll() {
+            isScrolling = false;
+            document.getElementById('scroll-icon').setAttribute('data-lucide', 'play');
+            document.getElementById('scroll-toggle-btn').classList.remove('bg-amber-500', 'text-white');
+            lucide.createIcons();
+            if (scrollInterval) {
+                cancelAnimationFrame(scrollInterval);
+            }
+        }
+
+        // Pause scroll if user touches/scrolls manually
+        window.addEventListener('wheel', () => {
+            if (isScrolling) {
+                // Optional: You can either slow/pause or let it continue. 
+                // We'll let it continue to keep it simple but allow pausing via button.
+            }
+        });
+
+        // --- Custom Prayer (Local Storage Interface) ---
+        function toggleEditorModal() {
+            const modal = document.getElementById('editor-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function saveCustomPrayer() {
+            const inputVal = document.getElementById('custom-html-input').value;
+            if (inputVal.trim() === '') {
+                alert('הזן קוד HTML תקין.');
+                return;
+            }
+            localStorage.setItem('custom_prayer_html', inputVal);
+            document.getElementById('prayer-content').innerHTML = inputVal;
+            toggleEditorModal();
+        }
+
+        function clearCustomPrayer() {
+            if(confirm('האם אתה בטוח שברצונך לאפס לנוסח ברירת המחדל?')) {
+                localStorage.removeItem('custom_prayer_html');
+                location.reload();
+            }
+        }
+
+        // --- Location & Zmanim Service (Hebcal APIs) ---
+        function initLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userCoords.lat = position.coords.latitude;
+                        userCoords.lon = position.coords.longitude;
+                        locationPermissionGranted = true;
+                        
+                        // Update UI
+                        document.getElementById('coord-display').innerHTML = `
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-green-500"></i>
+                            <span>מיקומך זוהה בהצלחה (דיוק מרבי)</span>
+                        `;
+                        const locInd = document.getElementById('location-indicator');
+                        locInd.classList.remove('animate-pulse');
+                        locInd.classList.add('text-green-500');
+                        lucide.createIcons();
+
+                        // Fetch updated Zmanim
+                        fetchZmanim();
+                    },
+                    (error) => {
+                        console.log("Geolocation error or rejected, using defaults.");
+                        fetchZmanim(); // Load default Jerusalem
+                    }
+                );
+            } else {
+                fetchZmanim();
+            }
+        }
+
+        function requestLocation() {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    localStorage.setItem('user_lat', position.coords.latitude);
+                    localStorage.setItem('user_lon', position.coords.longitude);
+                    location.reload();
+                },
+                (err) => {
+                    alert('אנא אשר גישת מיקום בדפדפן על מנת לקבל זמני תפילה מדויקים.');
+                }
+            );
+        }
+
+        // Fetch Hebrew date for today
+        async function fetchHebrewDate() {
+            try {
+                const response = await fetch('https://www.hebcal.com/converter?cfg=json&g2h=1');
+                const data = await response.json();
+                if (data && data.hebrew) {
+                    // Translate or adapt text
+                    document.getElementById('hebrew-date').innerText = data.hebrew;
+                }
+            } catch (err) {
+                console.error("Error fetching Hebrew date:", err);
+                document.getElementById('hebrew-date').innerText = "יום חול";
+            }
+        }
+
+        // Fetch Sunrise and Sunset based on current coordinates
+        async function fetchZmanim() {
+            try {
+                const url = `https://www.hebcal.com/zmanim?cfg=json&latitude=${userCoords.lat}&longitude=${userCoords.lon}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data && data.times) {
+                    // Extract times and format beautifully
+                    const sunrise = formatTime(data.times.sunrise);
+                    const sunset = formatTime(data.times.sunset);
+
+                    document.getElementById('sunrise-time').innerText = sunrise || '--:--';
+                    document.getElementById('sunset-time').innerText = sunset || '--:--';
+                }
+            } catch (err) {
+                console.error("Error fetching Zmanim:", err);
+            }
+        }
+
+        // Helper to format ISO Date strings to Local Time HH:MM
+        function formatTime(isoStr) {
+            if (!isoStr) return null;
+            const date = new Date(isoStr);
+            return date.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', hour12: false });
         }
     </script>
 </body>
