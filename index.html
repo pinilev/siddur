@@ -1,4 +1,123 @@
-<!-- ... existing code ... -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סידור שחרית - וַיְכַלְכֵּל יוֹסֵף</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        siddur: ['"Frank Ruhl Libre"', 'David', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap');
+        body { transition: background-color 0.3s, color 0.3s; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-[#fdfbf7] text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-siddur min-h-screen">
+
+    <!-- סרגל כלים עליון -->
+    <nav class="sticky top-0 bg-white/95 dark:bg-slate-900/95 shadow-md border-b border-amber-200 dark:border-slate-800 p-3 z-50 backdrop-blur select-none">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+            
+            <!-- כותרת וזמנים -->
+            <div class="text-center sm:text-right">
+                <h1 class="text-2xl font-bold text-amber-700 dark:text-amber-500">וַיְכַלְכֵּל יוֹסֵף</h1>
+                <div class="text-sm text-slate-600 dark:text-slate-400 mt-1 flex flex-wrap justify-center sm:justify-start gap-3">
+                    <span id="heb-date" class="font-bold">טוען תאריך...</span>
+                    <span id="sun-times">טוען זמנים...</span>
+                </div>
+            </div>
+
+            <!-- כפתורי שליטה -->
+            <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                <button onclick="changeFontSize(2)" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="הגדל טקסט">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13.4a2 2 0 0 1 1.6 3.2l-3.4 4.5a2 2 0 0 0 0 2.6l3.4 4.5a2 2 0 0 1-1.6 3.2H6a2 2 0 0 1-2-2z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+                </button>
+                <button onclick="changeFontSize(-2)" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="הקטן טקסט">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13.4a2 2 0 0 1 1.6 3.2l-3.4 4.5a2 2 0 0 0 0 2.6l3.4 4.5a2 2 0 0 1-1.6 3.2H6a2 2 0 0 1-2-2z"/><path d="M9 12h6"/></svg>
+                </button>
+                <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div>
+                <button id="scroll-btn" onclick="toggleAutoScroll()" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="גלילה אוטומטית">
+                    <svg id="scroll-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                </button>
+                <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div>
+                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="מצב חשוך/מואר">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- תוכן התפילה -->
+    <main id="siddur-content" class="p-6 max-w-3xl mx-auto pb-32" style="font-size: 26px; line-height: 1.6;">
+        
+        <!-- ================================================================= -->
+        <!-- ===== הדבק כאן את הטקסט של תפילת שחרית (במקום שורת ההדגמה) ===== -->
+        <!-- ================================================================= -->
+        
+        <div class="text-center text-slate-400 mt-20 border-2 border-dashed border-slate-300 p-10 rounded-xl">
+            כאן יופיע טקסט התפילה.<br>
+            פתח את הקובץ בעורך טקסט והדבק את קוד ה-HTML במקום המסומן.
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- ========================== סוף אזור הטקסט ========================== -->
+        <!-- ================================================================= -->
+
+    </main>
+
+    <script>
+        // אלמנטים
+        const html = document.documentElement;
+        const content = document.getElementById('siddur-content');
+        const hebDateEl = document.getElementById('heb-date');
+        const sunTimesEl = document.getElementById('sun-times');
+        const scrollIcon = document.getElementById('scroll-icon');
+        const scrollBtn = document.getElementById('scroll-btn');
+
+        // שינוי גודל פונט
+        let currentFontSize = 26;
+        function changeFontSize(delta) {
+            currentFontSize += delta;
+            if (currentFontSize < 14) currentFontSize = 14;
+            if (currentFontSize > 60) currentFontSize = 60;
+            content.style.fontSize = currentFontSize + 'px';
+        }
+
+        // מצב לילה/יום
+        function toggleTheme() {
+            html.classList.toggle('dark');
+        }
+
+        // גלילה אוטומטית
+        let scrollInterval;
+        let isScrolling = false;
+        function toggleAutoScroll() {
+            isScrolling = !isScrolling;
+            if (isScrolling) {
+                scrollBtn.classList.add('text-amber-600', 'bg-amber-100', 'dark:bg-amber-900', 'dark:text-amber-400');
+                scrollIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'; // אייקון השהיה
+                scrollInterval = setInterval(() => {
+                    window.scrollBy({top: 1, behavior: 'auto'});
+                }, 40); // מהירות גלילה
+            } else {
+                scrollBtn.classList.remove('text-amber-600', 'bg-amber-100', 'dark:bg-amber-900', 'dark:text-amber-400');
+                scrollIcon.innerHTML = '<polygon points="6 3 20 12 6 21 6 3"></polygon>'; // אייקון נגן
+                clearInterval(scrollInterval);
+            }
+        }
+
         // המרת שעות לתבנית 24 שעות
         function formatTime(time12h) {
             try {
@@ -10,7 +129,7 @@
             } catch(e) { return time12h; }
         }
 
-        // הבאת תאריך עברי
+        // הבאת תאריך עברי בצורה תקינה ודינמית
         const today = new Date().toISOString().split('T')[0];
         fetch(`https://www.hebcal.com/converter?cfg=json&date=${today}&g=1`)
             .then(res => res.json())
