@@ -4,122 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>סידור שחרית - וַיְכַלְכֵּל יוֹסֵף</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Frank Ruhl Libre (Traditional Hebrew Look) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        trad: ['"Frank Ruhl Libre"', 'serif'],
-                        sans: ['Rubik', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
     <style>
-        /* קריאה נוחה כמו בספר מסורתי */
-        .prayer-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-        .prayer-text {
-            font-size: var(--prayer-font-size, 22px);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap');
+        body { font-family: 'Frank Ruhl Libre', serif; }
+        .dark { background-color: #121212; color: #e0dacf; }
     </style>
 </head>
-<body class="bg-[#fcfaf2] text-[#2c251e] dark:bg-[#121212] dark:text-[#e0dacf] transition-colors duration-300 min-h-screen font-sans">
+<body class="bg-[#fcfaf2] text-[#2c251e] dark:bg-[#121212] dark:text-[#e0dacf] transition-colors duration-300">
 
-    <!-- סרגל כלים עליון דביק ויוקרתי -->
-    <header class="sticky top-0 z-50 bg-[#faf6eb]/95 dark:bg-[#181818]/95 backdrop-blur-md border-b border-[#e6dec9] dark:border-[#2a2a2a] shadow-sm px-4 py-3">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
-            
-            <!-- אזור כותרת וזמני היום -->
-            <div class="flex items-center justify-between md:justify-start gap-4">
+    <header class="sticky top-0 bg-[#faf6eb]/95 dark:bg-[#181818]/95 backdrop-blur-md border-b border-[#e6dec9] dark:border-[#2a2a2a] p-4">
+        <div class="max-w-4xl mx-auto flex flex-col gap-4">
+            <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-xl font-bold font-trad text-amber-800 dark:text-amber-400">וַיְכַלְכֵּל יוֹסֵף - שחרית</h1>
-                    <div class="text-xs text-amber-900/70 dark:text-amber-300/60" id="hebrewDate">טוען תאריך עברי...</div>
+                    <h1 class="text-xl font-bold text-amber-800 dark:text-amber-400">וַיְכַלְכֵּל יוֹסֵף - שחרית</h1>
+                    <div id="hebrewDate" class="text-sm text-stone-600 dark:text-stone-400">טוען תאריך...</div>
                 </div>
                 
-                <!-- זמני יום (זריחה ושקיעה) עם אייקונים פשוטים -->
-                <div class="flex items-center gap-3 text-xs border-r border-[#e6dec9] dark:border-[#2a2a2a] pr-4">
-                    <div class="flex items-center gap-1" title="זריחה">
-                        <!-- אייקון זריחה פשוט -->
-                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v3m0 12v3M4.22 4.22l2.12 2.12m11.32 11.32l2.12 2.12M21 12h-3M6 12H3m14 0a5 5 0 11-10 0"></path>
-                        </svg>
-                        <span>זריחה: <span id="sunriseTime">--:--</span></span>
-                    </div>
-                    <div class="flex items-center gap-1" title="שקיעה">
-                        <!-- אייקון שקיעה פשוט -->
-                        <svg class="w-4 h-4 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 17v4M4.22 19.78l2.12-2.12m11.32-11.32l2.12-2.12M21 17h-3M6 17H3m14 0a5 5 0 11-10 0M12 5V3"></path>
-                        </svg>
-                        <span>שקיעה: <span id="sunsetTime">--:--</span></span>
-                    </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="setSpeed(0)" class="px-3 py-1 bg-red-500 text-white rounded-lg font-bold">עצור</button>
+                    <button onclick="setSpeed(0.5)" class="px-3 py-1 bg-amber-500 text-white rounded-lg font-bold">x0.5</button>
+                    <button onclick="setSpeed(1.5)" class="px-3 py-1 bg-amber-500 text-white rounded-lg font-bold">x1</button>
+                    <button onclick="document.documentElement.classList.toggle('dark')" class="p-2 rounded-lg bg-stone-200 dark:bg-[#333]">🌙</button>
                 </div>
             </div>
-
-            <!-- בקרים (גלילה, פונט, מצב לילה) -->
-            <div class="flex items-center justify-between md:justify-end gap-3 md:gap-4">
-                
-                <!-- שליטה בגלילה -->
-                <div class="flex items-center gap-2 bg-[#f4ebd0] dark:bg-[#222] px-2.5 py-1.5 rounded-full">
-                    <!-- כפתור הפעלה/עצירה ללא מילים -->
-                    <button id="scrollToggleBtn" class="p-2 bg-amber-600 hover:bg-amber-700 active:scale-95 text-white rounded-full transition-all duration-150 focus:outline-none" title="הפעל / השהה גלילה">
-                        <!-- אייקון Play -->
-                        <svg id="playIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"></path>
-                        </svg>
-                        <!-- אייקון Pause (מוסתר) -->
-                        <svg id="pauseIcon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
-                        </svg>
-                    </button>
-                    <!-- זחלן מהירות -->
-                    <input id="speedSlider" type="range" min="0.5" max="8" step="0.5" value="2" class="w-16 md:w-24 h-1.5 bg-amber-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-amber-600" title="מהירות גלילה">
-                    <span id="speedValue" class="text-xs font-bold text-amber-800 dark:text-amber-400 w-6 text-center">2x</span>
+            
+            <div class="flex gap-6 text-sm text-stone-600 dark:text-stone-400">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2m0 16v2m8-8h2M2 12h2m13.6-5.6l1.4-1.4M6.4 17.8l-1.4 1.4m12.7 0l1.4-1.4M6.4 6.2L5 4.8M12 16a4 4 0 100-8 4 4 0 000 8z"/></svg>
+                    זריחה: 05:30
                 </div>
-
-                <!-- שינוי גודל פונט -->
-                <div class="flex items-center gap-1 bg-[#f4ebd0] dark:bg-[#222] px-2.5 py-1 rounded-full text-xs">
-                    <button id="fontDecBtn" class="p-1 hover:bg-[#e6dec9] dark:hover:bg-[#333] rounded-full font-bold w-6 h-6 flex items-center justify-center" title="הקטן פונט">א-</button>
-                    <span id="fontSizeDisplay" class="font-bold text-amber-800 dark:text-amber-400">22</span>
-                    <button id="fontIncBtn" class="p-1 hover:bg-[#e6dec9] dark:hover:bg-[#333] rounded-full font-bold w-6 h-6 flex items-center justify-center" title="הגדל פונט">א+</button>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 18a5 5 0 0 0-10 0M12 9v9M4.2 11.5l1.4 1.4M18.4 11.5l1.4 1.4M21 21H3"/></svg>
+                    שקיעה: 19:45
                 </div>
-
-                <!-- מצב בהיר/חשוך -->
-                <button id="themeToggleBtn" class="p-2 rounded-full bg-[#f4ebd0] dark:bg-[#222] hover:bg-[#e6dec9] dark:hover:bg-[#333] text-amber-900 dark:text-amber-100 transition-colors" title="שינוי ערכת נושא">
-                    <!-- שמש -->
-                    <svg id="sunIcon" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
-                    </svg>
-                    <!-- ירח -->
-                    <svg id="moonIcon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                    </svg>
-                </button>
-
             </div>
         </div>
     </header>
 
-    <!-- תוכן הסידור -->
     <main class="max-w-3xl mx-auto px-6 py-8">
-        <div id="prayerContainer" class="prayer-text font-trad text-justify">
-            
-            <!-- ============================================================= -->
-            <!-- PASTE_YOUR_PRAYER_HTML_START -->
-            <!-- הדבק את ה-HTML של התפילה שלך כאן במקום התיבה למטה -->
-            <!-- ============================================================= -->
-            
-            <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><span style='font-size:15px;line-height:150%;font-family:"David",sans-serif;'>קַדֵּשׁ שְׁמָךְ בְּעוֹלָמָךְ עַל־עַם מְקַדְּשֵׁי שְׁמֶךָ,&nbsp;<br>&nbsp;ובִישׁוּעָתְךָ מַלְכֵּנוּ תָּרוּם וְתַגְבִּיהַּ קַרְנֵנוּ,&nbsp;<br>&nbsp;וְתוֹשִׁיעֵנוּ בְּקָרוֹב לְמַעַן&nbsp;</span><span style='font-family:"David",sans-serif;'>ש</span><span style='font-size:15px;line-height:150%;font-family:"David",sans-serif;'>ְמֶךָ</span><span style='font-family:"David",sans-serif;'>,<br>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>בָּרוּךְ הַמְקַדֵּשׁ שְׁמוֹ בָּרַבִּים</span></strong><span style='font-family:"David",sans-serif;'>:<strong><br>&nbsp;אַתָּה</strong></span><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>הוּא</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יְהֹוָה</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;הָאֱלֹהִים&nbsp;<br>&nbsp;בַּשָּׁמַיִם מִמַּעַל וְעַל־הָאָרֶץ מִתַּחַת,&nbsp;<br>&nbsp;בִּשְׁמֵי הַשָּׁמַיִם הָעֶלְיוֹנִים וְהַתַּחְתּוֹנִים,&nbsp;<br>&nbsp;אַתָּה הוּא רִאשׁוֹן וְאַתָּה הוּא אַחֲרוֹן<br>&nbsp;וּמִבַּלְעָדֶיךָ אֵין אֱלֹהִים.&nbsp;<br> <strong>קַבֵּץ נְפוּצוֹת קֹוֶיךָ מֵאַרְבַּע כַּנְפוֹת הָאָרֶץ</strong>.&nbsp;<br>&nbsp;יַכִּירוּ וְיֵדְעוּ כָּל בָּאֵי עוֹלָם&nbsp;<br>&nbsp;כִּי אַתָּה הוּא הָאֱלֹהִים לְבַדְּךָ&nbsp;<br>&nbsp;לְכָל מַמְלְכוֹת הָאָרֶץ,&nbsp;<br>&nbsp;אַתָּה עָשִׂיתָ אֶת הַשָּׁמַיִם וְאֶת הָאָרֶץ,&nbsp;<br>&nbsp;אֶת הַיָּם וְאֶת כָּל אֲשֶׁר בָּם,&nbsp;<br>&nbsp;וּמִי בְּכָל מַעֲשֵׂה יָדֶיךָ&nbsp;<br>&nbsp;בָּעֶלְיוֹנִים וּבַתַּחְתּוֹנִים שֶׁיֹּאמַר לָךְ&nbsp;<br>&nbsp;מַה־תַּעֲשֶׂה וּמַה־תִּפְעָל.&nbsp;<br> <strong>אָבִינוּ שֶׁבַּשָּׁמַיִם חַי וְקַיָּם</strong>,&nbsp;<br>&nbsp;עֲשֵׂה עִמָּנוּ חֶסֶד בַּעֲבוּר כְּבוֹד שִׁמְךָ&nbsp;<br>&nbsp;הַגָּדוֹל הַגִּבּוֹר וְהַנּוֹרָא שֶׁנִּקְרָא עָלֵינוּ,&nbsp;<br> וְקַיֵּם לָנוּ&nbsp;<strong><span style="color:#074F6A;">יְהֹוָה</span></strong> אֱלֹהֵינוּ אֶת הַדָּבָר שֶׁהִבְטַחְתָּנוּ&nbsp;<br> עַל יְדֵי&nbsp;<strong>צְפַנְיָה</strong> חוֹזָךְ כָּאָמוּר:&nbsp;<br> <strong>בָּעֵ֤ת הַהִיא֙ אָבִ֣יא אֶתְכֶ֔ם וּבָעֵ֖ת קַבְּצִ֣י אֶתְכֶ֑ם&nbsp;<br>&nbsp;כִּֽי־אֶתֵּ֨ן אֶתְכֶ֜ם לְשֵׁ֣ם וְלִתְהִלָּ֗ה בְּכֹל֙ עַמֵּ֣י הָאָ֔רֶץ</strong></span><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;<br>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>בְּשׁוּבִ֧י אֶת־שְׁבוּתֵיכֶ֛ם לְעֵינֵיכֶ֖ם אָמַ֥ר</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יְהֹוָה</span></strong><span style='font-family:"David",sans-serif;'>:</span></p>
+        <div id="prayerContainer" class="text-2xl leading-loose">
+<p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><span style='font-size:15px;line-height:150%;font-family:"David",sans-serif;'>קַדֵּשׁ שְׁמָךְ בְּעוֹלָמָךְ עַל־עַם מְקַדְּשֵׁי שְׁמֶךָ,&nbsp;<br>&nbsp;ובִישׁוּעָתְךָ מַלְכֵּנוּ תָּרוּם וְתַגְבִּיהַּ קַרְנֵנוּ,&nbsp;<br>&nbsp;וְתוֹשִׁיעֵנוּ בְּקָרוֹב לְמַעַן&nbsp;</span><span style='font-family:"David",sans-serif;'>ש</span><span style='font-size:15px;line-height:150%;font-family:"David",sans-serif;'>ְמֶךָ</span><span style='font-family:"David",sans-serif;'>,<br>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>בָּרוּךְ הַמְקַדֵּשׁ שְׁמוֹ בָּרַבִּים</span></strong><span style='font-family:"David",sans-serif;'>:<strong><br>&nbsp;אַתָּה</strong></span><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>הוּא</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יְהֹוָה</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;הָאֱלֹהִים&nbsp;<br>&nbsp;בַּשָּׁמַיִם מִמַּעַל וְעַל־הָאָרֶץ מִתַּחַת,&nbsp;<br>&nbsp;בִּשְׁמֵי הַשָּׁמַיִם הָעֶלְיוֹנִים וְהַתַּחְתּוֹנִים,&nbsp;<br>&nbsp;אַתָּה הוּא רִאשׁוֹן וְאַתָּה הוּא אַחֲרוֹן<br>&nbsp;וּמִבַּלְעָדֶיךָ אֵין אֱלֹהִים.&nbsp;<br> <strong>קַבֵּץ נְפוּצוֹת קֹוֶיךָ מֵאַרְבַּע כַּנְפוֹת הָאָרֶץ</strong>.&nbsp;<br>&nbsp;יַכִּירוּ וְיֵדְעוּ כָּל בָּאֵי עוֹלָם&nbsp;<br>&nbsp;כִּי אַתָּה הוּא הָאֱלֹהִים לְבַדְּךָ&nbsp;<br>&nbsp;לְכָל מַמְלְכוֹת הָאָרֶץ,&nbsp;<br>&nbsp;אַתָּה עָשִׂיתָ אֶת הַשָּׁמַיִם וְאֶת הָאָרֶץ,&nbsp;<br>&nbsp;אֶת הַיָּם וְאֶת כָּל אֲשֶׁר בָּם,&nbsp;<br>&nbsp;וּמִי בְּכָל מַעֲשֵׂה יָדֶיךָ&nbsp;<br>&nbsp;בָּעֶלְיוֹנִים וּבַתַּחְתּוֹנִים שֶׁיֹּאמַר לָךְ&nbsp;<br>&nbsp;מַה־תַּעֲשֶׂה וּמַה־תִּפְעָל.&nbsp;<br> <strong>אָבִינוּ שֶׁבַּשָּׁמַיִם חַי וְקַיָּם</strong>,&nbsp;<br>&nbsp;עֲשֵׂה עִמָּנוּ חֶסֶד בַּעֲבוּר כְּבוֹד שִׁמְךָ&nbsp;<br>&nbsp;הַגָּדוֹל הַגִּבּוֹר וְהַנּוֹרָא שֶׁנִּקְרָא עָלֵינוּ,&nbsp;<br> וְקַיֵּם לָנוּ&nbsp;<strong><span style="color:#074F6A;">יְהֹוָה</span></strong> אֱלֹהֵינוּ אֶת הַדָּבָר שֶׁהִבְטַחְתָּנוּ&nbsp;<br> עַל יְדֵי&nbsp;<strong>צְפַנְיָה</strong> חוֹזָךְ כָּאָמוּר:&nbsp;<br> <strong>בָּעֵ֤ת הַהִיא֙ אָבִ֣יא אֶתְכֶ֔ם וּבָעֵ֖ת קַבְּצִ֣י אֶתְכֶ֑ם&nbsp;<br>&nbsp;כִּֽי־אֶתֵּ֨ן אֶתְכֶ֜ם לְשֵׁ֣ם וְלִתְהִלָּ֗ה בְּכֹל֙ עַמֵּ֣י הָאָ֔רֶץ</strong></span><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;<br>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>בְּשׁוּבִ֧י אֶת־שְׁבוּתֵיכֶ֛ם לְעֵינֵיכֶ֖ם אָמַ֥ר</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יְהֹוָה</span></strong><span style='font-family:"David",sans-serif;'>:</span></p>
 <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><strong><span style='font-family:"David",sans-serif;'>יְהִי רָצוֹן</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;מִלְּפָנֶיךָ<strong><span style="color:#074F6A;"><br>&nbsp;יְהֹוָה</span></strong> אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ&nbsp;<br> שֶׁתְּרַחֵם עָלֵינוּ, <strong>וְתִמְחוֹל</strong> לָנוּ אֶת כָּל&nbsp;<strong>חַטְּאוֹתֵינוּ</strong>,<br>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>וּתְכַפֵּר</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;לָנוּ אֶת־כָּל־<strong>עֲוֹנוֹתֵינוּ</strong>,<strong>&nbsp;<br>&nbsp;וְתִמְחוֹל וְתִסְלַח</strong> לְכָל&nbsp;<strong>פְּשָׁעֵינוּ</strong>,<br>&nbsp;וְתִּבְנֶה בֵּית הַמִּקְדָּשׁ בִּמְהֵרָה בְיָמֵינוּ,&nbsp;<br> וְנַקְרִיב לְפָנֶיךָ&nbsp;<strong>קָרְבַּן הַתָּמִיד</strong>&nbsp;<br>&nbsp;שֶׁיְּכַפֵּר בַּעֲדֵינוּ, כְּמוֹ שֶׁכָּתַבְתָּ עָלֵינוּ&nbsp;<br>&nbsp;בְּתוֹרָתָךְ עַל יְדֵי מֹשֶׁה עַבְדָּךְ כָּאָמוּר:&nbsp;<br> <strong>קרבן התמיד<br>&nbsp;וַיְדַבֵּ֥ר</strong></span><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יהֹוָ֖ה</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;אֶל־מֹשֶׁ֥ה לֵּאמֹֽר׃&nbsp;<br>&nbsp;צַ֚ו אֶת־בְּנֵ֣י יִשְׂרָאֵ֔ל וְאָמַרְתָּ֖ אֲלֵהֶ֑ם<br> <strong>אֶת־קׇרְבָּנִ֨י לַחְמִ֜י</strong> לְאִשַּׁ֗י רֵ֚יחַ נִֽיחֹחִ֔י&nbsp;<br>&nbsp;תִּשְׁמְר֕וּ לְהַקְרִ֥יב לִ֖י בְּמוֹעֲדֽוֹ׃&nbsp;<br>&nbsp;וְאָמַרְתָּ֣ לָהֶ֔ם זֶ֚ה הָֽאִשֶּׁ֔ה&nbsp;<br> אֲשֶׁ֥ר תַּקְרִ֖יבוּ לַ<strong><span style="color:#074F6A;">יהֹוָ֑ה</span></strong><br>&nbsp;כְּבָשִׂ֨ים בְּנֵֽי־שָׁנָ֧ה תְמִימִ֛ם&nbsp;<br>&nbsp;שְׁנַ֥יִם לַיּ֖וֹם עֹלָ֥ה תָמִֽיד׃&nbsp;<br>&nbsp;אֶת־הַכֶּ֥בֶשׂ אֶחָ֖ד תַּעֲשֶׂ֣ה בַבֹּ֑קֶר<br>&nbsp;וְאֵת֙ הַכֶּ֣בֶשׂ הַשֵּׁנִ֔י תַּעֲשֶׂ֖ה בֵּ֥ין הָֽעַרְבָּֽיִם׃&nbsp;<br>&nbsp;וַעֲשִׂירִ֧ית הָאֵיפָ֛ה סֹ֖לֶת לְמִנְחָ֑ה&nbsp;<br>&nbsp;בְּלוּלָ֛ה בְּשֶׁ֥מֶן כָּתִ֖ית רְבִיעִ֥ת הַהִֽין׃&nbsp;<br>&nbsp;עֹלַ֖ת תָּמִ֑יד הָעֲשֻׂיָה֙ בְּהַ֣ר סִינַ֔י&nbsp;<br> לְרֵ֣יחַ נִיחֹ֔חַ אִשֶּׁ֖ה לַֽ<strong><span style="color:#074F6A;">יהֹוָֽה</span></strong>׃&nbsp;<br>&nbsp;וְנִסְכּוֹ֙ רְבִיעִ֣ת הַהִ֔ין לַכֶּ֖בֶשׂ הָאֶחָ֑ד&nbsp;<br> בַּקֹּ֗דֶשׁ הַסֵּ֛ךְ נֶ֥סֶךְ שֵׁכָ֖ר לַ<strong><span style="color:#074F6A;">יהֹוָֽה</span></strong>׃&nbsp;<br>&nbsp;וְאֵת֙ הַכֶּ֣בֶשׂ הַשֵּׁנִ֔י תַּעֲשֶׂ֖ה בֵּ֣ין הָֽעַרְבָּ֑יִם&nbsp;<br>&nbsp;כְּמִנְחַ֨ת הַבֹּ֤קֶר וּכְנִסְכּוֹ֙ תַּעֲשֶׂ֔ה&nbsp;<br> אִשֵּׁ֛ה רֵ֥יחַ נִיחֹ֖חַ לַ<strong><span style="color:#074F6A;">יהֹוָֽה</span></strong>׃&nbsp;</span></p>
 <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><strong><span style='font-family:"David",sans-serif;'>פטום הקטורת</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'><br> אַתָּה</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;הוּא&nbsp;<strong><span style="color:#074F6A;">יְהֹוָה</span></strong> אֱלֹהֵֽינוּ,&nbsp;<br>&nbsp;שֶׁהִקְטִֽירוּ אֲבוֹתֵֽינוּ לְפָנֶֽיךָ&nbsp;<br>&nbsp;אֶת קְטֹֽרֶת הַסַּמִּים, בִּזְמַן שֶׁבֵּית הַמִּקְדָשׁ קַיָּם,&nbsp;<br>&nbsp;כַּאֲשֶׁר צִוִּֽיתָ אוֹתָם עַל־יַד מֹשֶׁה נְבִיאָךְ,&nbsp;<br>&nbsp;כַּכָּתוּב בְּתֽוֹרָתָךְ:&nbsp;</span></p>
 <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><strong><span style='font-family:"David",sans-serif;'>וַיֹּ֩אמֶר֩</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יְהֹוָ֨ה</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;אֶל־מֹשֶׁ֜ה קַח־לְךָ֣ סַמִּ֗ים&nbsp;<br>&nbsp;נָטָ֤ף | וּשְׁחֵ֙לֶת֙ וְחֶלְבְּנָ֔ה סַמִּ֖ים וּלְבֹנָ֣ה זַכָּ֑ה&nbsp;<br>&nbsp;בַּ֥ד בְּבַ֖ד יִהְיֶֽה׃&nbsp;<br> וְעָשִׂ֤יתָ אֹתָהּ֙&nbsp;<strong>קְטֹ֔רֶת רֹ֖קַח מַעֲשֵׂ֣ה רוֹקֵ֑חַ</strong>&nbsp;<br>&nbsp;מְמֻלָּ֖ח טָה֥וֹר קֹֽדֶשׁ׃&nbsp;<br>&nbsp;וְשָֽׁחַקְתָּ֣ מִמֶּ֘נָּה֮ הָדֵק֒&nbsp;<br>&nbsp;וְנָתַתָּ֨ה מִמֶּ֜נָּה לִפְנֵ֤י הָעֵדֻת֙&nbsp;<br>&nbsp;בְּאֹ֣הֶל מוֹעֵ֔ד אֲשֶׁ֛ר אִוָּעֵ֥ד לְךָ֖ שָׁ֑מָּה&nbsp;<br>&nbsp;קֹ֥דֶשׁ קׇֽדָשִׁ֖ים תִּהְיֶ֥ה לָכֶֽם׃&nbsp;<br>&nbsp;וְנֶֽאֱמַר וְהִקְטִ֥יר עָלָ֛יו אַהֲרֹ֖ן קְטֹ֣רֶת סַמִּ֑ים&nbsp;<br>&nbsp;בַּבֹּ֣קֶר בַּבֹּ֗קֶר בְּהֵיטִיב֛וֹ אֶת־הַנֵּרֹ֖ת יַקְטִירֶֽנָּה:&nbsp;<br> וּבְהַעֲלֹ֨ת אַהֲרֹ֧ן אֶת־הַנֵּרֹ֛ת בֵּ֥ין הָעַרְבַּ֖יִם יַקְטִירֶ֑נָּה <strong>קְטֹ֧רֶת תָּמִ֛יד לִפְנֵ֥י <span style="color:#074F6A;">יהֹוָ֖ה</span> לְדֹרֹתֵיכֶֽם:&nbsp;</strong></span></p>
@@ -266,236 +192,20 @@
 <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><strong><span style='font-family:"David",sans-serif;'>עלינו לשבח</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span></p>
 <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><strong><span style='font-family:"David",sans-serif;'>עָלֵֽינוּ</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>&nbsp;</span><strong><span style='font-family:"David",sans-serif;'>לְשַׁבֵּֽחַ לַֽאֲדוֹן הַכֹּל</span></strong><span style='font-family:"David",sans-serif;'>, לָתֵת גְּדֻלָּה לְיוֹצֵר בְּרֵאשִׁית, שֶׁלֹּא עָשָֽׂנוּ כְּגוֹיֵי הָֽאֲרָצוֹת, וְלֹא שָׂמָֽנוּ כְּמִשְׁפְּחוֹת הָֽאֲדָמָה,&nbsp;<br>&nbsp;שֶׁלֹּא שָׂם חֶלְקֵֽנוּ כָּהֶם וְגוֹרָלֵֽנוּ כְּכָל־הֲמוֹנָם, שֶׁהֵם מִשְׁתַּֽחֲוִים לָהֶֽבֶל וָרִיק, וּמִתְפַּלְּלִים אֶל־אֵל לֹֽא יוֹשִׁיעַ.&nbsp;<br> <strong>וַֽאֲנַֽחְנוּ מִשְׁתַּחֲוִים לִפְנֵי מֶֽלֶךְ מַלְכֵי הַֽמְּלָכִים הַקָּדוֹשׁ בָּרוּךְ הוּא</strong>, שֶׁהוּא נוֹטֶה שָׁמַֽיִם וְיוֹסֵד אָֽרֶץ, וּמוֹשַׁב יְקָרוֹ בַּשָּׁמַֽיִם מִמַּֽעַל, וּשְׁכִינַת עֻזּוֹ בְּגָבְהֵי מְרוֹמִים. הוּא אֱלֹהֵֽינוּ, וְאֵין עוֹד אַחֵר, אֱמֶת מַלְכֵּֽנוּ וְאֶֽפֶס זוּלָתוֹ.&nbsp;<br> כַּכָּתוּב בַּתּוֹרָה. וְיָדַעְתָּ֣ הַיּ֗וֹם וַהֲשֵׁבֹתָ֮ אֶל־לְבָבֶךָ֒ כִּ֤י <strong><span style="color:#074F6A;">יְהֹוָה</span></strong> ה֣וּא הָֽאֱלֹהִ֔ים <strong>בַּשָּׁמַ֣יִם מִמַּ֔עַל וְעַל־הָאָ֖רֶץ מִתָּ֑חַת אֵ֖ין עֽוֹד</strong>:&nbsp;</span></p>
 <p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><strong><span style='font-family:"David",sans-serif;'>עַל כֵּן נְקַוֶּה לָךְ</span></strong><span dir="LTR" style='font-family:"David",sans-serif;'>,&nbsp;</span><strong><span style='font-family:"David",sans-serif;color:#074F6A;'>יְהֹוָה</span></strong><span style='font-family:"David",sans-serif;'>&nbsp;אֱלֹהֵֽינוּ, לִרְאוֹת מְהֵרָה בְּתִפְאֶֽרֶת עֻזָּךְ, לְהַֽעֲבִיר גִּלּוּלִים מִן הָאָֽרֶץ, וְהָֽאֱלִילִים כָּרוֹת יִכָּֽרֵתוּן,&nbsp;<br> <strong>לְתַקֵּן עוֹלָם בְּמַלְכוּת שַׁדַּי</strong>, וְכָל־בְּנֵי בָשָׂר יִקְרְאוּ בִשְׁמֶֽךָ, לְהַפְנוֹת אֵלֶֽיךָ כָּל־רִשְׁעֵי אָֽרֶץ. יַכִּֽירוּ וְיֵֽדְעוּ כָּל־יֽוֹשְׁבֵי תֵבֵֽל,&nbsp;<br> כִּי לְךָ תִכְרַע כָּל־בֶּֽרֶךְ, תִּשָּׁבַע כָּל־לָשׁוֹן. לְפָנֶֽיךָ, <strong><span style="color:#074F6A;">יְהֹוָה</span></strong> אֱלֹהֵֽינוּ יִכְרְעוּ וְיִפֹּֽלוּ, וְלִכְבוֹד שִׁמְךָ יְקָר יִתֵּֽנוּ,&nbsp;<strong>וִיקַבְּלוּ כֻלָּם אֶת־עֹל מַלְכוּתֶֽךָ</strong>, וְתִמְלוֹךְ עֲלֵיהֶם מְהֵרָה לְעוֹלָם וָעֶד. כִּי הַמַּלְכוּת שֶׁלְּךָ הִיא, וּלְעֽוֹלְמֵי עַד תִּמְלוֹךְ בְּכָבוֹד. כַּכָּתוּב בְּתוֹרָתָךְ:&nbsp;<br> <strong><span style="color:#074F6A;">יְהֹוָ֥ה</span> ׀ יִמְלֹ֖ךְ לְעֹלָ֥ם וָעֶֽד</strong>׃ וְנֶאֱמַר. וְהָיָ֧ה <strong><span style="color:#074F6A;">יְהֹוָ֛ה</span></strong> לְמֶ֖לֶךְ עַל־כָּל־הָאָ֑רֶץ <strong>בַּיּ֣וֹם הַה֗וּא יִהְיֶ֧ה <span style="color:#074F6A;">יְהֹוָ֛ה</span> אֶחָ֖ד וּשְׁמ֥וֹ אֶחָֽד׃</strong>&nbsp;</span></p>
-<p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><span style='font-family:"David",sans-serif;'>וּבְתוֹרָתְךָ <strong><span style="color:#074F6A;">יְהֹוָה</span></strong> אֱלֹהֵינוּ כָּתוּב לֵּאמֹר. <strong>שְׁמַ֖ע יִשְׂרָאֵ֑ל <span style="color:#074F6A;">יְהֹוָ֥ה</span> אֱלֹהֵ֖ינוּ <span style="color:#074F6A;">יְהֹוָ֥ה</span> ׀ אֶחָֽד׃</strong></span></p>
-
-
-            <!-- ============================================================= -->
-            <!-- PASTE_YOUR_PRAYER_HTML_END -->
-            <!-- ============================================================= -->
-
+<p dir="RTL" style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:right;line-height:150%;font-size:16px;font-family:"Aptos",sans-serif;'><span style='font-family:"David",sans-serif;'>וּבְתוֹרָתְךָ <strong><span style="color:#074F6A;">יְהֹוָה</span></strong> אֱלֹהֵינוּ כָּתוּב לֵּאמֹר. <strong>שְׁמַ֖ע יִשְׂרָאֵ֑ל <span style="color:#074F6A;">יְהֹוָ֥ה</span> אֱלֹהֵ֖ינוּ <span style="color:#074F6A;">יְהֹוָ֥ה</span> ׀ אֶחָֽד׃</strong></span></p>            <div class="h-[2000px] mt-10 border-t border-stone-300"></div>
         </div>
     </main>
 
-    <!-- סקריפטים ומערכות קצה -->
     <script>
-        // אלמנטים
-        const scrollToggleBtn = document.getElementById('scrollToggleBtn');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
-        const speedSlider = document.getElementById('speedSlider');
-        const speedValue = document.getElementById('speedValue');
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const fontIncBtn = document.getElementById('fontIncBtn');
-        const fontDecBtn = document.getElementById('fontDecBtn');
-        const fontSizeDisplay = document.getElementById('fontSizeDisplay');
-        const prayerContainer = document.getElementById('prayerContainer');
-
-        // משתני מצב
-        let isScrolling = false;
-        let scrollSpeed = parseFloat(speedSlider.value);
-        let animationFrameId = null;
-        let fontSize = 22; // פונט ברירת מחדל
-
-        // 1. ניהול גודל גופן
-        function updateFontSize() {
-            prayerContainer.style.setProperty('--prayer-font-size', `${fontSize}px`);
-            fontSizeDisplay.textContent = fontSize;
+        let interval;
+        function setSpeed(s) {
+            clearInterval(interval);
+            if (s > 0) interval = setInterval(() => window.scrollBy(0, s * 2), 50);
         }
-
-        fontIncBtn.addEventListener('click', () => {
-            if (fontSize < 42) {
-                fontSize += 2;
-                updateFontSize();
-            }
-        });
-
-        fontDecBtn.addEventListener('click', () => {
-            if (fontSize > 16) {
-                fontSize -= 2;
-                updateFontSize();
-            }
-        });
-
-        // 2. ניהול גלילה אוטומטית חלקה (ומשתנה בזמן אמת)
-        speedSlider.addEventListener('input', (e) => {
-            scrollSpeed = parseFloat(e.target.value);
-            speedValue.textContent = scrollSpeed + 'x';
-        });
-
-        function scrollStep() {
-            if (!isScrolling) return;
-
-            // גלילה חלקה מותאמת לפריימים
-            window.scrollBy(0, scrollSpeed * 0.45);
-
-            // עצירה אוטומטית בסוף
-            const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 2);
-            if (isAtBottom) {
-                stopScrolling();
-            } else {
-                animationFrameId = requestAnimationFrame(scrollStep);
-            }
-        }
-
-        function startScrolling() {
-            isScrolling = true;
-            playIcon.classList.add('hidden');
-            pauseIcon.classList.remove('hidden');
-            animationFrameId = requestAnimationFrame(scrollStep);
-        }
-
-        function stopScrolling() {
-            isScrolling = false;
-            playIcon.classList.remove('hidden');
-            pauseIcon.classList.add('hidden');
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-        }
-
-        scrollToggleBtn.addEventListener('click', () => {
-            if (isScrolling) {
-                stopScrolling();
-            } else {
-                startScrolling();
-            }
-        });
-
-        // עצירה ידנית אם המשתמש נוגע במסך או גולל עצמאית
-        window.addEventListener('wheel', () => { if (isScrolling) stopScrolling(); });
-        window.addEventListener('touchmove', () => { if (isScrolling) stopScrolling(); });
-
-        // 3. תאריך עברי
-        async function fetchHebrewDate() {
-            try {
-                const response = await fetch('https://www.hebcal.com/converter?cfg=json&g2h=1');
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('hebrewDate').textContent = data.hebrew;
-                }
-            } catch (err) {
-                document.getElementById('hebrewDate').textContent = "טוען תאריך עברי...";
-            }
-        }
-
-        // 4. מנוע אסטרונומי מקומי לחישוב זמני זריחה ושקיעה (ללא צורך ברשת)
-        function calculateSunriseSunset(lat, lon, date = new Date()) {
-            const latRad = lat * Math.PI / 180;
-            
-            // יום בשנה
-            const start = new Date(date.getFullYear(), 0, 0);
-            const diff = date - start;
-            const oneDay = 1000 * 60 * 60 * 24;
-            const dayOfYear = Math.floor(diff / oneDay);
-            
-            // נטיית השמש (Declination)
-            const declination = 23.45 * Math.sin((360 / 365) * (284 + dayOfYear) * Math.PI / 180) * Math.PI / 180;
-            
-            // זווית שעה (Hour angle)
-            let cosH = -Math.tan(latRad) * Math.tan(declination);
-            cosH = Math.max(-1, Math.min(1, cosH)); // הגבלה למניעת שגיאות בקטבים
-            const H = Math.acos(cosH) * 180 / Math.PI;
-            
-            // משוואת הזמן (Equation of Time) לדיוק דקות
-            const b = (360 / 365) * (dayOfYear - 81) * Math.PI / 180;
-            const equationOfTime = 9.87 * Math.sin(2 * b) - 7.53 * Math.cos(b) - 1.5 * Math.sin(b);
-            
-            // אזור זמן מקומי בשעות
-            const timezoneOffset = -date.getTimezoneOffset() / 60;
-            
-            // חצות היום המקומי המשוער
-            const utcNoon = 12 - (lon / 15) - (equationOfTime / 60);
-            const localNoon = utcNoon + timezoneOffset;
-            
-            // חישוב זמנים עשרוניים
-            const sunriseDec = localNoon - (H / 15);
-            const sunsetDec = localNoon + (H / 15);
-            
-            const formatTime = (decimalHours) => {
-                let h = Math.floor(decimalHours);
-                let m = Math.round((decimalHours - h) * 60);
-                if (m === 60) { h++; m = 0; }
-                if (h >= 24) h -= 24;
-                if (h < 0) h += 24;
-                return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-            };
-            
-            return {
-                sunrise: formatTime(sunriseDec),
-                sunset: formatTime(sunsetDec)
-            };
-        }
-
-        // עדכון התצוגה בעזרת המנוע המתמטי
-        function updateZmanimMathematically(lat, lon) {
-            try {
-                const times = calculateSunriseSunset(lat, lon);
-                document.getElementById('sunriseTime').textContent = times.sunrise;
-                document.getElementById('sunsetTime').textContent = times.sunset;
-            } catch (e) {
-                console.error("שגיאה בחישוב המקומי:", e);
-            }
-        }
-
-        // ניסיון לעדכן זמנים רשמיים מ-Hebcal (אם יש רשת ואין חסימת CORS)
-        async function fetchZmanim(lat, lon) {
-            try {
-                const response = await fetch(`https://www.hebcal.com/zmanim?cfg=json&lat=${lat}&long=${lon}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.times && data.times.sunrise) {
-                        const sunrise = new Date(data.times.sunrise);
-                        document.getElementById('sunriseTime').textContent = sunrise.toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-                    }
-                    if (data.times && data.times.sunset) {
-                        const sunset = new Date(data.times.sunset);
-                        document.getElementById('sunsetTime').textContent = sunset.toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
-                    }
-                }
-            } catch (err) {
-                console.log("שרת Hebcal לא זמין, המערכת משתמשת בחישוב האסטרונומי הפנימי.");
-            }
-        }
-
-        // זיהוי מיקום והפעלה
-        function initLocationAndZmanim() {
-            const defaultLat = 31.7683; // ירושלים
-            const defaultLon = 35.2137;
-            
-            // 1. חישוב מיידי ללא דיליי
-            updateZmanimMathematically(defaultLat, defaultLon);
-
-            // 2. בקשת מיקום ועדכון מותאם אישית
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        updateZmanimMathematically(lat, lon);
-                        fetchZmanim(lat, lon);
-                    },
-                    (error) => {
-                        fetchZmanim(defaultLat, defaultLon);
-                    }
-                );
-            } else {
-                fetchZmanim(defaultLat, defaultLon);
-            }
-        }
-
-        // 5. ערכת נושא
-        themeToggleBtn.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-        });
-
-        // אתחול מערכת
-        fetchHebrewDate();
-        initLocationAndZmanim();
-        updateFontSize();
-
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
+        
+        fetch('https://www.hebcal.com/converter?cfg=json&g2h=1')
+            .then(res => res.json())
+            .then(data => document.getElementById('hebrewDate').innerText = data.hebrew);
     </script>
 </body>
 </html>
